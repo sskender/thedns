@@ -19,6 +19,19 @@ resource "aws_subnet" "primary" {
   map_public_ip_on_launch                        = true
 }
 
+resource "aws_subnet" "secondary" {
+  vpc_id                                         = aws_vpc.main.id
+  cidr_block                                     = "10.0.0.16/28"
+  private_dns_hostname_type_on_launch            = "ip-name"
+  availability_zone                              = data.aws_availability_zones.available.names[1]
+  assign_ipv6_address_on_creation                = false
+  enable_dns64                                   = false
+  enable_resource_name_dns_a_record_on_launch    = false
+  enable_resource_name_dns_aaaa_record_on_launch = false
+  ipv6_native                                    = false
+  map_public_ip_on_launch                        = true
+}
+
 resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.main.id
 }
@@ -41,4 +54,9 @@ resource "aws_main_route_table_association" "rtb_main" {
 resource "aws_route_table_association" "rtb_primary" {
   route_table_id = aws_route_table.rtb.id
   subnet_id      = aws_subnet.primary.id
+}
+
+resource "aws_route_table_association" "rtb_secondary" {
+  route_table_id = aws_route_table.rtb.id
+  subnet_id      = aws_subnet.secondary.id
 }
