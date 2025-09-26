@@ -36,3 +36,19 @@ resource "aws_vpc_security_group_ingress_rule" "server_allow_dns_udp" {
   ip_protocol       = "udp"
   cidr_ipv4         = "0.0.0.0/0"
 }
+
+resource "aws_network_interface" "primary" {
+  private_ips     = ["10.0.0.4"]
+  subnet_id       = aws_subnet.primary.id
+  security_groups = [aws_security_group.server.id]
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "aws_eip_association" "primary" {
+  allocation_id        = aws_eip.primary.id
+  network_interface_id = aws_network_interface.primary.id
+  allow_reassociation  = false
+}

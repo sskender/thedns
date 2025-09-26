@@ -2,7 +2,7 @@ resource "aws_vpc" "main" {
   cidr_block                           = "10.0.0.0/26"
   instance_tenancy                     = "default"
   enable_dns_support                   = true
-  enable_dns_hostnames                 = true
+  enable_dns_hostnames                 = false
   enable_network_address_usage_metrics = false
 }
 
@@ -59,4 +59,8 @@ resource "aws_route_table_association" "rtb_primary" {
 resource "aws_route_table_association" "rtb_secondary" {
   route_table_id = aws_route_table.rtb.id
   subnet_id      = aws_subnet.secondary.id
+}
+
+resource "aws_eip" "primary" {
+  domain = "vpc"
 }
