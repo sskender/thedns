@@ -52,3 +52,35 @@ resource "aws_eip_association" "primary" {
   network_interface_id = aws_network_interface.primary.id
   allow_reassociation  = false
 }
+
+resource "aws_instance" "server_primary" {
+  ami                                  = "ami-0444794b421ec32e4"
+  disable_api_termination              = true
+  disable_api_stop                     = true
+  instance_initiated_shutdown_behavior = "stop"
+  instance_type                        = "t3a.micro"
+  monitoring                           = false
+  iam_instance_profile                 = aws_iam_instance_profile.server.name
+
+  primary_network_interface {
+    network_interface_id = aws_network_interface.primary.id
+  }
+
+  metadata_options {
+    http_endpoint               = "enabled"
+    http_protocol_ipv6          = "disabled"
+    http_tokens                 = "required"
+    http_put_response_hop_limit = 1
+  }
+
+  root_block_device {
+    volume_size           = 8
+    delete_on_termination = true
+    encrypted             = true
+  }
+}
+
+resource "aws_ec2_instance_state" "server_primary" {
+  instance_id = aws_instance.server_primary.id
+  state       = "running"
+}
