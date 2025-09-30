@@ -58,7 +58,7 @@ resource "aws_instance" "server_primary" {
   disable_api_termination              = true
   disable_api_stop                     = true
   instance_initiated_shutdown_behavior = "stop"
-  instance_type                        = "t3a.micro"
+  instance_type                        = "t3a.small"
   monitoring                           = false
   iam_instance_profile                 = aws_iam_instance_profile.server.name
 
