@@ -37,6 +37,14 @@ resource "aws_vpc_security_group_ingress_rule" "server_allow_dns_udp" {
   cidr_ipv4         = "0.0.0.0/0"
 }
 
+resource "aws_vpc_security_group_ingress_rule" "server_allow_dns_tls" {
+  security_group_id = aws_security_group.server.id
+  from_port         = 853
+  to_port           = 853
+  ip_protocol       = "tcp"
+  cidr_ipv4         = "0.0.0.0/0"
+}
+
 resource "aws_vpc_security_group_ingress_rule" "server_allow_http" {
   security_group_id = aws_security_group.server.id
   from_port         = 80
