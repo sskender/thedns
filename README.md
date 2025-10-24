@@ -57,3 +57,8 @@ Renew certificate:
 - [ ] Automate `lego` certificate renewal
 - [ ] Automate installation on server
 - [ ] Add secondary server for high availability
+
+## FAQ
+
+- Can I just use your DNS server? - Yes, why not. Just set your clients to use `https://dns.sskender.com/dns-query`.
+- Can I use DoH on iPhone? - Yes, check out this cool guy `https://dns.notjakob.com/`.
