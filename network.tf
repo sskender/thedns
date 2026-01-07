@@ -16,7 +16,7 @@ resource "aws_subnet" "primary" {
   enable_resource_name_dns_a_record_on_launch    = false
   enable_resource_name_dns_aaaa_record_on_launch = false
   ipv6_native                                    = false
-  map_public_ip_on_launch                        = true
+  map_public_ip_on_launch                        = false
 }
 
 resource "aws_subnet" "secondary" {
@@ -29,7 +29,7 @@ resource "aws_subnet" "secondary" {
   enable_resource_name_dns_a_record_on_launch    = false
   enable_resource_name_dns_aaaa_record_on_launch = false
   ipv6_native                                    = false
-  map_public_ip_on_launch                        = true
+  map_public_ip_on_launch                        = false
 }
 
 resource "aws_internet_gateway" "gw" {
