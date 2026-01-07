@@ -64,3 +64,7 @@ resource "aws_route_table_association" "rtb_secondary" {
 resource "aws_eip" "primary" {
   domain = "vpc"
 }
+
+resource "aws_eip" "secondary" {
+  domain = "vpc"
+}
